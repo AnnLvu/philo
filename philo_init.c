@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alvutina <alvutina@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 11:26:15 by alvutina          #+#    #+#             */
+/*   Updated: 2024/07/29 11:26:15 by alvutina         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h" 
 
 int	check_args(int argc, char **argv)
@@ -9,9 +21,9 @@ int	check_args(int argc, char **argv)
 		return (1); 
 	}
 	if (argc == 6)
-	{ 
+	{
 		if (argv[5][0] == '\0') 
-		{ 
+		{
 			printf("%s", ERROR1);
 			return (1);
 		}

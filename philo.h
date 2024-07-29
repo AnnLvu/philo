@@ -37,17 +37,17 @@
 
 /*---------------------------- STRUCTURES ----------------------------*/
 
-typedef struct s_philo	t_philo;
+typedef struct s_philo				t_philo;
 typedef struct s_dining_simulation	t_dining_simulation;
 
 typedef struct s_philo
 {
-	int				meal_eaten;
-	int				id_num;
-	pthread_t		thread;
-	long long		last_meal;
-	int				right_fork;
-	int				left_fork;
+	int							meal_eaten;
+	int							id_num;
+	pthread_t					thread;
+	long long					last_meal;
+	int							right_fork;
+	int							left_fork;
 	t_dining_simulation			*args;
 }	t_philo; 
 

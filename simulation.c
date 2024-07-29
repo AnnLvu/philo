@@ -27,11 +27,11 @@ void	philo_start(t_dining_simulation *store)
 		while (store->finish_game == false)
 			check_philo_status(store);
 	}
-} 
- 
+}
+
 void	*life_cycle(void *val)
 {
-	t_philo	*philo;
+	t_philo				*philo;
 	t_dining_simulation	*store;
 
 	philo = (t_philo *)val;

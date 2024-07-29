@@ -16,7 +16,7 @@ void	*one_philo(void *p)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)p;  
+	philo = (t_philo *)p;
 	pthread_mutex_lock(&philo->args->fork[philo->left_fork]);
 	output(philo, GFORK);
 	philo_sleep(philo, philo->args->time_die); 
