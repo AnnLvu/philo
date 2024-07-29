@@ -28,7 +28,7 @@
 
 # define ERROR1			"Invalid Argument Detected"
 # define ERROR2			"The program expects 4-5 Numeric Args:" 
-# define ERROR3			"Ex: ./philo [num of philo] [time 2 die] [time 2 eat]"
+# define ERROR3			"Ex.: ./philo [num of philo] [time die] [time eat]..."
 # define GFORK			"has taken a fork"
 # define DIED			" died"
 # define EATING			"is eating"
