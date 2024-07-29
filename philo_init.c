@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "philo.h" 
-
+/*The `check_args` function verifies the number of arguments, ensures the sixth
+argument (if present) is not empty, and checks that all arguments are 
+valid digits.*/
 int	check_args(int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
@@ -36,6 +38,8 @@ int	check_args(int argc, char **argv)
 	return (0);
 }
 
+/*The `check_error` function validates simulation parameters, ensuring
+all values are non-negative.*/
 int	check_error(t_dining_simulation *store, char **argv)
 {
 	if (store->time_sleep < 0 || store->time_eat < 0 || store->time_die < 0
@@ -52,13 +56,16 @@ int	check_error(t_dining_simulation *store, char **argv)
 	return (0);
 }
 
+/*The initialization function sets up the simulation, including configuring
+parameters, allocating memory, and initializing mutexes.
+It returns 1 on failure and 0 on success.*/
 int	initialization(char **argv, t_dining_simulation *store)
 {
 	int	i;
 
 	i = -1;
 	store->error = false;
-	store->finish_game = false;
+	store->finish_sim = false;
 	store->end_meal = 0;
 	store->num_philo = ft_atoi(argv[1]);
 	store->time_die = ft_atoi(argv[2]);
@@ -79,6 +86,8 @@ int	initialization(char **argv, t_dining_simulation *store)
 	return (0);
 }
 
+/*function initializes the philosopher array in the simulation,
+setting each philosopher's ID, fork indices, and other attributes.*/
 void	init_philosophers(t_dining_simulation *store)
 {
 	int	i;
@@ -96,6 +105,8 @@ void	init_philosophers(t_dining_simulation *store)
 	}
 }
 
+/*Function cleans up resources by joining philosopher threads,
+destroying mutexes, and freeing allocated memory.*/
 void	philo_destroy(t_dining_simulation *store)
 {
 	int	i;

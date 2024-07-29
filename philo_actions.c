@@ -12,6 +12,10 @@
 
 #include "philo.h"
 
+/*function simulates the behavior of a single philosopher.
+It locks their left fork, sleeps for the duration of time_die, then unlocks
+the fork and marks the philosopher as dead. It also sets the finish_sim flag
+to true to end the simulation.*/
 void	*one_philo(void *p)
 {
 	t_philo	*philo;
@@ -23,11 +27,15 @@ void	*one_philo(void *p)
 	pthread_mutex_unlock(&philo->args->fork[philo->left_fork]);
 	output(philo, DIED);
 	pthread_mutex_lock(&philo->args->checks);
-	philo->args->finish_game = true;
+	philo->args->finish_sim = true;
 	pthread_mutex_unlock(&philo->args->checks);
 	return (NULL);
 }
 
+/*function handles a philosopher's attempt to pick up both forks.
+Depending on the philosopher's ID, it either locks the left fork
+first or the right fork first, ensuring that forks are acquired
+in a way that avoids deadlock.*/
 void	taken_fork(t_philo *philo)
 {
 	if (philo->id_num % 2)
@@ -45,13 +53,16 @@ void	taken_fork(t_philo *philo)
 	}
 }
 
+/*function handles the philosopher eating:
+it acquires forks, updates meal time and count,
+and releases forks afterward.*/
 void	eating(t_philo *philo)
 {
 	bool	lock;
 
 	lock = true;
 	pthread_mutex_lock(&philo->args->checks);
-	if (philo->args->finish_game == false)
+	if (philo->args->finish_sim == false)
 	{
 		lock = false;
 		pthread_mutex_unlock(&philo->args->checks);
@@ -69,15 +80,19 @@ void	eating(t_philo *philo)
 		pthread_mutex_unlock(&philo->args->checks);
 }
 
+/*The `thinking` function outputs a message indicating that
+the philosopher is thinking, provided that the simulation is not finished.*/
 void	thinking(t_philo *philo)
 {
-	if (philo->args->finish_game == false)
+	if (philo->args->finish_sim == false)
 		output(philo, THINKING);
 }
 
+/* function outputs a message indicating that the philosopher is sleeping
+and then puts the philosopher to sleep if the simulation is not finished.*/
 void	going_sleep(t_philo *philo)
 {
-	if (philo->args->finish_game == false)
+	if (philo->args->finish_sim == false)
 	{
 		output(philo, SLEEPING);
 		philo_sleep(philo, philo->args->time_sleep);

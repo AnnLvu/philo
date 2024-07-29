@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*The main function checks command-line arguments, initializes the simulation,
+ starts the philosophers, and then cleans up resources.*/
 #include "philo.h" 
 
 int	main(int argc, char **argv)

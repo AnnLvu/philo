@@ -12,6 +12,9 @@
 
 #include "philo.h"
 
+/* function returns the current time in milliseconds since the Unix epoch.
+It uses gettimeofday to get the current time and converts
+it into milliseconds.*/
 long long	timestart(void)
 {
 	struct timeval	start_time;
@@ -20,6 +23,9 @@ long long	timestart(void)
 	return ((start_time.tv_sec * 1000) + (start_time.tv_usec / 1000));
 }
 
+/*function returns the number of milliseconds elapsed since the start of
+the simulation. It uses gettimeofday to get the current time
+and subtracts the start time of the simulation.*/
 long long	timestamp(t_dining_simulation *store)
 {
 	struct timeval	time;
@@ -28,6 +34,9 @@ long long	timestamp(t_dining_simulation *store)
 	return (((time.tv_sec * 1000) + (time.tv_usec / 1000)) - store->time_start);
 }
 
+/*The philo_sleep function makes a philosopher sleep for a specified time,
+periodically checking if the time has elapsed while ensuring thread
+safety with a mutex.*/
 void	philo_sleep(t_philo *philo, int wait)
 {
 	long long	current_time;
@@ -56,7 +65,7 @@ void	output_fork(t_philo *philo)
 
 void	output(t_philo *philo, char *str)
 {
-	if (philo->args->finish_game == false)
+	if (philo->args->finish_sim == false)
 	{
 		pthread_mutex_lock(&philo->args->checks);
 		printf("%lld %d %s\n", \

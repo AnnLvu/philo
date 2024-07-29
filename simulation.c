@@ -12,6 +12,10 @@
 
 #include "philo.h"
 
+/*function starts the simulation by creating philosopher threads
+if there is more than one philosopher. If there is only one philosopher,
+it directly runs the one_philo function. It then monitors
+the simulation status until it is finished.*/
 void	philo_start(t_dining_simulation *store)
 {
 	int	i;
@@ -24,11 +28,14 @@ void	philo_start(t_dining_simulation *store)
 		while (++i < store->num_philo) 
 			pthread_create(&store->philo[i].thread, NULL,
 				&life_cycle, (void *)&store->philo[i]); 
-		while (store->finish_game == false)
+		while (store->finish_sim == false)
 			check_philo_status(store);
 	}
 }
 
+/*function controls a philosopher's actions(eating, sleeping, thinking)
+while checking if the simulation is finished or
+if the philosopher has reached the meal limit.*/
 void	*life_cycle(void *val)
 {
 	t_philo				*philo;
@@ -36,7 +43,7 @@ void	*life_cycle(void *val)
 
 	philo = (t_philo *)val;
 	store = philo->args;
-	while (store->finish_game == false)
+	while (store->finish_sim == false)
 	{
 		pthread_mutex_lock(&philo->args->checks);
 		if (store->meal_limit > 0 && philo->meal_eaten == store->meal_limit)
@@ -52,12 +59,14 @@ void	*life_cycle(void *val)
 	return (NULL);
 }
 
+/*The `check_philo_status` function repeatedly checks each philosopher's
+status and meal limits until the simulation ends.*/
 void	check_philo_status(t_dining_simulation *store)
 {
 	int	death_id;
 
 	death_id = 0;
-	while (store->finish_game == false) 
+	while (store->finish_sim == false) 
 	{
 		check_life(&store->philo[death_id]);
 		meal_limit_check(store);
@@ -68,6 +77,8 @@ void	check_philo_status(t_dining_simulation *store)
 	}
 }
 
+/*function checks if a philosopher has died based on elapsed time since
+their last meal and updates the simulation state if they have.*/
 void	check_life(t_philo *philo)
 {
 	bool	lock;
@@ -80,13 +91,15 @@ void	check_life(t_philo *philo)
 		pthread_mutex_unlock(&philo->args->checks);
 		output(philo, DIED);
 		pthread_mutex_lock(&philo->args->checks);
-		philo->args->finish_game = true; 
+		philo->args->finish_sim = true; 
 		pthread_mutex_unlock(&philo->args->checks);
 	}
 	if (lock)
 		pthread_mutex_unlock(&philo->args->checks);
 }
 
+/*function checks if all philosophers have reached the meal limit
+and ends the simulation if they have.*/
 void	meal_limit_check(t_dining_simulation *store)
 {
 	int	meal_nbr;
@@ -108,7 +121,7 @@ void	meal_limit_check(t_dining_simulation *store)
 		if (meal_nbr == store->num_philo)
 		{
 			pthread_mutex_lock(&store->checks);
-			store->finish_game = true;
+			store->finish_sim = true;
 			pthread_mutex_unlock(&store->checks);
 		}
 	}

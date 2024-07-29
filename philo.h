@@ -54,7 +54,7 @@ typedef struct s_philo
 typedef struct s_dining_simulation
 {
 	int				error;
-	bool			finish_game;
+	bool			finish_sim;
 	int				end_meal;
 	long long		time_start;
 	long long		time_eat;
