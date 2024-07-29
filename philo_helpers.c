@@ -59,8 +59,8 @@ void	output(t_philo *philo, char *str)
 	if (philo->args->finish_game == false)
 	{
 		pthread_mutex_lock(&philo->args->checks);
-		printf("%lld %s %d %s\n", \
-		timestamp(philo->args), "ms", philo->id_num, str);
+		printf("%lld %d %s\n", \
+		timestamp(philo->args), philo->id_num, str);
 		pthread_mutex_unlock(&philo->args->checks);
 	}
 }
