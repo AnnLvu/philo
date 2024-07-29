@@ -26,10 +26,10 @@
 
 /*------------------------ PRINT TO STDOUT -------------------------*/
 
-# define ERROR1			"Invalid Argument Detected"
-# define ERROR2			"The program expects 4-5 Numeric Args:" 
+# define ERROR1			"Invalid argument detected"
+# define ERROR2			"The program expects 4-5 args:" 
 # define ERROR3			"Ex.: ./philo [num of philo] [time die] [time eat]..."
-# define GFORK			"has taken a fork"
+# define TFORK			"has taken a fork"
 # define DIED			" died"
 # define EATING			"is eating"
 # define THINKING		"is thinking"

@@ -50,8 +50,8 @@ void	philo_sleep(t_philo *philo, int wait)
 
 void	output_fork(t_philo *philo)
 {
-	output(philo, GFORK);
-	output(philo, GFORK);
+	output(philo, TFORK);
+	output(philo, TFORK);
 }
 
 void	output(t_philo *philo, char *str)

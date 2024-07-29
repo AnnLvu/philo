@@ -18,7 +18,7 @@ void	*one_philo(void *p)
 
 	philo = (t_philo *)p;
 	pthread_mutex_lock(&philo->args->fork[philo->left_fork]);
-	output(philo, GFORK);
+	output(philo, TFORK);
 	philo_sleep(philo, philo->args->time_die); 
 	pthread_mutex_unlock(&philo->args->fork[philo->left_fork]);
 	output(philo, DIED);
